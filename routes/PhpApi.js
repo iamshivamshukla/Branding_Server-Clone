@@ -49,7 +49,7 @@ var axios = require("axios");
 
 async function getAuthorization() {
   try {
-    const phpApiUrl = "https://connectgoinfoware.com/new_apis/MLM/get_auth.php";
+    const phpApiUrl = "https://kubertree.com/MLM/MLM/get_auth.php";
     const phpApiResponse = await axios.get(phpApiUrl);
 
     if (phpApiResponse.status === 200) {
@@ -83,7 +83,7 @@ router.get("/sponsor_parent/:mobileNumber", async (req, res) => {
       const mobileNumber = req.params.mobileNumber;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_sponsor_parent.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_sponsor_parent.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       if (phpApiResponse.status === 200) {
@@ -188,7 +188,7 @@ router.post("/mlm/purchase", async (req, res) => {
       const parent_id = req.body.treeId;
       const side = req.body.side;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/register.php?number=${number}&reference=${reference}&parent_id=${parent_id}&side=${side}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/register.php?number=${number}&reference=${reference}&parent_id=${parent_id}&side=${side}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       console.log(phpApiResponse.data.message, "phpApiResponse.data.status");
@@ -260,7 +260,7 @@ router.post("/mlm/purchase", async (req, res) => {
 //       const parent_id = req.body.treeId;
 //       const side = req.body.side;
 
-//       const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/register.php?number=${number}&reference=${reference}&parent_id=${parent_id}&side=${side}`;
+//       const phpApiUrl = `https://kubertree.com/MLM/MLM/register.php?number=${number}&reference=${reference}&parent_id=${parent_id}&side=${side}`;
 //       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
 //       console.log(phpApiResponse.data.message, "phpApiResponse.data.status");
@@ -331,7 +331,7 @@ router.get("/directresponse/:mobileNumber", async (req, res) => {
       const mobileNumber = req.params.mobileNumber;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_join_sponsor_join.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_join_sponsor_join.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -384,7 +384,7 @@ router.get("/wallet/:mobileNumber", async (req, res) => {
       console.log(mobileNumber, "mobileNumber");
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_user.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -464,7 +464,7 @@ router.get("/wallet/:mobileNumber", async (req, res) => {
 //       const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
 //       // Make an HTTP request to the PHP API
-//       const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/today_join.php`;
+//       const phpApiUrl = `https://kubertree.com/MLM/MLM/today_join.php`;
 //       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
 //       // Check if the response from the PHP API is successful
@@ -555,7 +555,7 @@ router.get("/wallet/:mobileNumber", async (req, res) => {
 //       const offset = pageNumber * pageSize;
 
 //       // Make an HTTP request to the PHP API with pagination parameters
-//       const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/today_join.php?offset=${offset}&pageSize=${pageSize}`;
+//       const phpApiUrl = `https://kubertree.com/MLM/MLM/today_join.php?offset=${offset}&pageSize=${pageSize}`;
 //       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
 //       if (phpApiResponse.status === 200) {
@@ -608,7 +608,7 @@ router.get("/todayjoin", async (req, res) => {
       const offset = pageNumber * pageSize;
 
       // Make an HTTP request to the PHP API with pagination parameters
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/today_join.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/today_join.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -675,7 +675,7 @@ router.get("/todayjoin/count", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/today_join.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/today_join.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -725,7 +725,7 @@ router.get("/totaljoin/count", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_user.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -778,7 +778,7 @@ router.get("/totaljoin/count", async (req, res) => {
 //       const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
 //       // Make an HTTP request to the PHP API
-//       const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_user.php`;
+//       const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php`;
 //       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
 //       // Check if the response from the PHP API is successful
@@ -865,7 +865,7 @@ router.get("/totaljoin", async (req, res) => {
       console.log(pageNumber);
 
       // Make an HTTP request to the PHP API with the specified page number and page size
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_user.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -958,7 +958,7 @@ router.get("/todaycreditamount", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_today_credit.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_today_credit.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1014,7 +1014,7 @@ router.get("/totalcreditamount", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_total_credit.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_total_credit.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1074,7 +1074,7 @@ router.get("/todaycredit", async (req, res) => {
       const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_today_credit.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_today_credit.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1157,7 +1157,7 @@ router.get("/todaycredit", async (req, res) => {
 //     const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
 //     // Make an HTTP request to the PHP API
-//     const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_total_credit.php`;
+//     const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_total_credit.php`;
 //     const phpApiResponse = await axios.get(phpApiUrl);
 
 //     // Check if the response from the PHP API is successful
@@ -1236,7 +1236,7 @@ router.get("/totalcredit", async (req, res) => {
       const pageSize = 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_total_credit.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_total_credit.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -1324,7 +1324,7 @@ router.get("/todaydebit", async (req, res) => {
       const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_today_debit.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_today_debit.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -1416,7 +1416,7 @@ router.get("/totaldebit", async (req, res) => {
       const pageSize = parseInt(req.query.pageSize) || 10;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_total_debit.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_total_debit.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -1494,7 +1494,7 @@ router.get("/totaldebit", async (req, res) => {
 //     const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
 //     // Make an HTTP request to the PHP API
-//     const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_total_debit.php`;
+//     const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_total_debit.php`;
 //     const phpApiResponse = await axios.get(phpApiUrl);
 
 //     // Check if the response from the PHP API is successful
@@ -1570,7 +1570,7 @@ router.get("/todaydebitamount", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_today_debit.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_today_debit.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1625,7 +1625,7 @@ router.get("/totaldebitamount", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/admin_total_debit.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/admin_total_debit.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1680,10 +1680,10 @@ router.get("/treeview", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/parent_child_show.php?user_id=1`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/parent_child_show.php?user_id=3`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
-      // const parentURL = `https://brandingprofitable-29d465d7c7b1.herokuapp.com/php/wallet/9106636361`
+      // const parentURL = `http://localhost:4001/php/wallet/9106636361`
       // const parentResponse = await axiosInstance.get(parentURL);
 
       // const parentData = parentResponse.data.details
@@ -1738,6 +1738,7 @@ router.get("/treeview", async (req, res) => {
 
         // Assuming there's only one item in the response, take the first element
         const singleItem = history[0];
+        console.log(singleItem, "singleItem");
 
         // Return the extracted data as a response to your Node.js API client
         res.status(200).json(singleItem);
@@ -1775,7 +1776,7 @@ router.get("/tree/:mobileNumber", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/parent_child_show.php?user_id=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/parent_child_show.php?user_id=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1811,7 +1812,7 @@ router.get("/tree/:mobileNumber", async (req, res) => {
 // router.get('/treeview', async (req, res) => {
 //   try {
 //     // Make an HTTP request to the PHP API
-//     const phpApiUrl = 'https://connectgoinfoware.com/new_apis/MLM/parent_child_show.php?user_id=1';
+//     const phpApiUrl = 'https://kubertree.com/MLM/MLM/parent_child_show.php?user_id=1';
 //     const phpApiResponse = await axios.get(phpApiUrl);
 
 //     // Check if the response from the PHP API is successful
@@ -1869,8 +1870,8 @@ router.get("/dashboard", async (req, res) => {
       });
 
       // Make an HTTP request to the PHP API
-      // const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_all_wallet_count.php`;
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/show_all_data.php`;
+      // const phpApiUrl = `https://kubertree.com/MLM/MLM/get_all_wallet_count.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/show_all_data.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -1921,7 +1922,7 @@ router.get("/companywallet", async (req, res) => {
       });
 
       // Make a request using the Axios instance
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_company_wallet_details.php`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_company_wallet_details.php`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       if (phpApiResponse.status === 200) {
@@ -1960,7 +1961,7 @@ router.get("/companywallet", async (req, res) => {
 //     });
 
 //     // Make a request using the Axios instance
-//     const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_company_wallet_details.php`;
+//     const phpApiUrl = `https://kubertree.com/MLM/MLM/get_company_wallet_details.php`;
 //     const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
 //     if (phpApiResponse.status === 200) {
@@ -1995,7 +1996,7 @@ router.get("/premium/:mobileNumber", async (req, res) => {
       const mobileNumber = req.params.mobileNumber;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/user_register.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/user_register.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
       console.log(phpApiResponse.data.status, "phpApiResponse.data.status");
 
@@ -2043,7 +2044,7 @@ router.get("/premium/:mobileNumber", async (req, res) => {
 //       const mobileNumber = req.params.mobileNumber;
 
 //       // Make an HTTP request to the PHP API
-//       const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/user_register.php?number=${mobileNumber}`;
+//       const phpApiUrl = `https://kubertree.com/MLM/MLM/user_register.php?number=${mobileNumber}`;
 //       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 //       console.log(phpApiResponse.data.status, "phpApiResponse.data.status");
 
@@ -2091,7 +2092,7 @@ router.get("/mpincheck/:mobileNumber", async (req, res) => {
       const mobileNumber = req.params.mobileNumber;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/user_register.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/user_register.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
       console.log(phpApiResponse.data.status, "phpApiResponse.data.status");
 
@@ -2204,7 +2205,7 @@ router.get("/findpair/:mobileNumber", async (req, res) => {
       const mobileNumber = req.params.mobileNumber;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/left_right_empty.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/left_right_empty.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -2478,7 +2479,7 @@ router.get("/userhistory/:mobileNumber/:name", async (req, res) => {
       const page = req.params.page;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_all_user_history.php?number=${mobileNumber}&name=${name}&page=${page}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_all_user_history.php?number=${mobileNumber}&name=${name}&page=${page}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
@@ -2531,7 +2532,7 @@ router.get("/reword", async (req, res) => {
       const pageSize = parseInt(req.query.pageSize) || 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_admin_show_history.php?name=Reword&page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_admin_show_history.php?name=Reword&page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -2617,7 +2618,7 @@ router.get("/binary", async (req, res) => {
       const pageSize = parseInt(req.query.pageSize) || 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_admin_show_history.php?name=Binary&page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_admin_show_history.php?name=Binary&page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -2703,7 +2704,7 @@ router.get("/royalty", async (req, res) => {
       const pageSize = parseInt(req.query.pageSize) || 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_admin_show_history.php?name=Royalty&page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_admin_show_history.php?name=Royalty&page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -2789,7 +2790,7 @@ router.get("/sponsor", async (req, res) => {
       const pageSize = parseInt(req.query.pageSize) || 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_admin_show_history.php?name=Sponsor&page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_admin_show_history.php?name=Sponsor&page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -2876,7 +2877,7 @@ router.get("/globalroyalty", async (req, res) => {
       const pageSize = parseInt(req.query.pageSize) || 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/get_admin_show_history.php?name=G_Royalty&page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_admin_show_history.php?name=G_Royalty&page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
@@ -2966,7 +2967,7 @@ router.get("/allhistory", async (req, res) => {
       const pageSize = 200;
       const pageNumber = parseInt(req.query.pageNumber) || 0;
 
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/all_admin_history.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/all_admin_history.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
