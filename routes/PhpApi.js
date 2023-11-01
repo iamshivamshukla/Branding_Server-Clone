@@ -381,7 +381,6 @@ router.get("/wallet/:mobileNumber", async (req, res) => {
 
       // Extract the mobileNumber from the request parameters
       const mobileNumber = req.params.mobileNumber;
-      console.log(mobileNumber, "mobileNumber");
 
       // Make an HTTP request to the PHP API
       const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?number=${mobileNumber}`;
@@ -390,7 +389,6 @@ router.get("/wallet/:mobileNumber", async (req, res) => {
       // Check if the response from the PHP API is successful
       if (phpApiResponse.status === 200) {
         const dataFromPhpApi = phpApiResponse.data.details[0];
-        console.log(dataFromPhpApi, "dataFromPhpApi");
 
         // Modify the key "number" to "mobileNumber"
         dataFromPhpApi.mobileNumber = dataFromPhpApi.number;
@@ -874,8 +872,7 @@ router.get("/totaljoin", async (req, res) => {
       if (phpApiResponse.status === 200) {
         // Extract the relevant data from the PHP API response
         const history = phpApiResponse.data.details;
-
-        console.log(history, "--------------------");
+        console.log(history, "history");
 
         // Create an array to store the updated history items with fullName
         const updatedHistory = [];
@@ -1683,7 +1680,7 @@ router.get("/treeview", async (req, res) => {
       const phpApiUrl = `https://kubertree.com/MLM/MLM/parent_child_show.php?user_id=3`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
-      // const parentURL = `http://localhost:4001/php/wallet/9106636361`
+      // const parentURL = `https://branding-clone-e48aa7e67749.herokuapp.com/php/wallet/9106636361`
       // const parentResponse = await axiosInstance.get(parentURL);
 
       // const parentData = parentResponse.data.details
@@ -2861,7 +2858,6 @@ router.get("/sponsor", async (req, res) => {
   }
 });
 
-
 router.get("/globalroyalty", async (req, res) => {
   try {
     const dynamicAuthorization = await getAuthorization();
@@ -2948,10 +2944,6 @@ router.get("/globalroyalty", async (req, res) => {
   }
 });
 
-
-
-
-
 router.get("/allhistory", async (req, res) => {
   try {
     const dynamicAuthorization = await getAuthorization();
@@ -3017,6 +3009,167 @@ router.get("/allhistory", async (req, res) => {
           total_pages: totalPages, // Include the total pages count
           message: "Data retrieved successfully from PHP API",
           history: sortedHistory,
+        });
+      } else {
+        res.status(401).json({
+          statusCode: 401,
+          message: "Error in retrieving data from PHP API",
+        });
+      }
+    } else {
+      res.status(402).json({
+        statusCode: 402,
+        message: "Error in fetching Authorization data",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      message: error.message,
+    });
+  }
+});
+
+router.get("/user_wallet", async (req, res) => {
+  try {
+    const dynamicAuthorization = await getAuthorization();
+    if (dynamicAuthorization) {
+      // Configure the Axios instance with the dynamic Authorization value
+      const axiosInstance = axios.create({
+        headers: {
+          Authorization: dynamicAuthorization,
+        },
+      });
+
+      // Get the page size and page number from query parameters
+      const pageSize = 200; // Set the page size to 200 as requested
+      const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
+
+      // Make an HTTP request to the PHP API with the specified page number and page size
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?page=${
+        pageNumber + 1
+      }&per_page=${pageSize}`;
+      const phpApiResponse = await axiosInstance.get(phpApiUrl);
+
+      // Check if the response from the PHP API is successful
+      if (phpApiResponse.status === 200) {
+        // Extract the relevant data from the PHP API response
+        const history = phpApiResponse.data.details;
+
+        // Create an array to store the updated history items with fullName
+        const updatedHistory = [];
+
+        // // Iterate over the history items and lookup the fullName
+        // for (const historyItem of history) {
+        //   // Find the user by mobileNumber (adjust this based on your data structure)
+        //   const user = await Register.findOne({
+        //     mobileNumber: historyItem.number,
+        //   });
+
+        //   // Add the user's fullName to the history item
+        //   historyItem.fullName = user ? user.fullName : null;
+        //   historyItem.adress = user ? user.adress : null;
+        //   historyItem.email = user ? user.email : null;
+
+        //   // Add the updated history item to the array
+        //   updatedHistory.push(historyItem);
+        // }
+
+        // Sort the data by date in descending order
+        const sortedHistory = updatedHistory.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
+        // Calculate the total records and total pages count
+        const totalRecords = parseInt(
+          phpApiResponse.data.pagination.total_records
+        );
+        const totalPages = Math.ceil(totalRecords / pageSize);
+
+        // Calculate the starting index based on the page size and number
+        const startIndex = pageSize * pageNumber;
+
+        // Apply pagination using the slice method
+        // const paginatedData = sortedHistory.slice(
+        //   startIndex,
+        //   startIndex + pageSize
+        // );
+
+        // Return the extracted and paginated data along with the total pages count
+        res.status(200).json({
+          statusCode: 200,
+          perPageDataCount: sortedHistory.length,
+          totalUsernCount: totalRecords,
+          total_pages: totalPages, // Include the total pages count
+          message: "Data retrieved successfully from PHP API",
+          history: history,
+        });
+      } else {
+        res.status(401).json({
+          statusCode: 401,
+          message: "Error in retrieving data from PHP API",
+        });
+      }
+    } else {
+      res.status(402).json({
+        statusCode: 402,
+        message: "Error in fetching Authorization data",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      message: error.message,
+    });
+  }
+});
+
+router.get("/all_userhistory/:mobileNumber/:name", async (req, res) => {
+  try {
+    const dynamicAuthorization = await getAuthorization();
+
+    if (dynamicAuthorization) {
+      const axiosInstance = axios.create({
+        headers: {
+          Authorization: dynamicAuthorization,
+        },
+      });
+
+      const mobileNumber = req.params.mobileNumber;
+      const name = req.params.name;
+      const pageSize = 200; // Set the page size to 200 as requested
+      const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
+
+      // Make an HTTP request to the PHP API
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_all_user_history.php?number=${mobileNumber}&name=${name}&page=${
+        pageNumber + 1
+      }&per_page=${pageSize}`;
+      const phpApiResponse = await axiosInstance.get(phpApiUrl);
+
+      if (phpApiResponse.status === 200) {
+        const history = phpApiResponse.data.details;
+        const updatedHistory = [];
+
+        const sortedHistory = updatedHistory.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
+        // Calculate the total records and total pages count
+        const totalRecords = parseInt(
+          phpApiResponse.data.pagination.total_records
+        );
+        const totalPages = Math.ceil(totalRecords / pageSize);
+
+        // res.json(history);
+
+        // Return the extracted data as a response to your Node.js API clients
+        res.status(200).json({
+          statusCode: 200,
+          perPageDataCount: sortedHistory.length,
+          totalUserHistoryCount: totalRecords,
+          total_pages: totalPages, // Include the total pages count
+          message: "Data retrieved successfully from PHP API",
+          history: history,
         });
       } else {
         res.status(401).json({
