@@ -759,7 +759,7 @@ router.get("/totaljoin/count", async (req, res) => {
   }
 });
 
-// Today Purchase MLM User Detail
+// Today Purchase MLM User Detail (Get Name Using For Loop)
 // router.get("/totaljoin", async (req, res) => {
 //   try {
 //     const dynamicAuthorization = await getAuthorization();
@@ -772,17 +772,22 @@ router.get("/totaljoin/count", async (req, res) => {
 //       });
 
 //       // Get the page size and page number from query parameters
-//       const pageSize = parseInt(req.query.pageSize) || 10; // Default to 10 if not provided
+//       const pageSize = 200; // Set the page size to 200 as requested
 //       const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
-//       // Make an HTTP request to the PHP API
-//       const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php`;
+//       console.log(pageNumber);
+
+//       // Make an HTTP request to the PHP API with the specified page number and page size
+//       const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?page=${
+//         pageNumber + 1
+//       }&per_page=${pageSize}`;
 //       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
 //       // Check if the response from the PHP API is successful
 //       if (phpApiResponse.status === 200) {
 //         // Extract the relevant data from the PHP API response
 //         const history = phpApiResponse.data.details;
+//         console.log(history, "history");
 
 //         // Create an array to store the updated history items with fullName
 //         const updatedHistory = [];
@@ -808,6 +813,12 @@ router.get("/totaljoin/count", async (req, res) => {
 //           (a, b) => new Date(b.date) - new Date(a.date)
 //         );
 
+//         // Calculate the total records and total pages count
+//         const totalRecords = parseInt(
+//           phpApiResponse.data.pagination.total_records
+//         );
+//         const totalPages = Math.ceil(totalRecords / pageSize);
+
 //         // Calculate the starting index based on the page size and number
 //         const startIndex = pageSize * pageNumber;
 
@@ -817,13 +828,14 @@ router.get("/totaljoin/count", async (req, res) => {
 //           startIndex + pageSize
 //         );
 
-//         // Return the extracted and paginated data as a response to your Node.js API client
+//         // Return the extracted and paginated data along with the total pages count
 //         res.status(200).json({
 //           statusCode: 200,
-//           perPageDataCount: paginatedData.length,
-//           totalJoinCount: sortedHistory.length,
+//           perPageDataCount: sortedHistory.length,
+//           totalJoinCount: totalRecords,
+//           total_pages: totalPages, // Include the total pages count
 //           message: "Data retrieved successfully from PHP API",
-//           history: paginatedData,
+//           history: sortedHistory,
 //         });
 //       } else {
 //         res.status(401).json({
@@ -845,6 +857,8 @@ router.get("/totaljoin/count", async (req, res) => {
 //   }
 // });
 
+
+// Today Purchase MLM User Detail (Without Get Name Using For Loop)
 router.get("/totaljoin", async (req, res) => {
   try {
     const dynamicAuthorization = await getAuthorization();
@@ -860,7 +874,6 @@ router.get("/totaljoin", async (req, res) => {
       const pageSize = 200; // Set the page size to 200 as requested
       const pageNumber = parseInt(req.query.pageNumber) || 0; // Default to 0 if not provided
 
-      console.log(pageNumber);
 
       // Make an HTTP request to the PHP API with the specified page number and page size
       const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?page=${
@@ -872,29 +885,28 @@ router.get("/totaljoin", async (req, res) => {
       if (phpApiResponse.status === 200) {
         // Extract the relevant data from the PHP API response
         const history = phpApiResponse.data.details;
-        console.log(history, "history");
 
         // Create an array to store the updated history items with fullName
-        const updatedHistory = [];
+        // const updatedHistory = [];
 
-        // Iterate over the history items and lookup the fullName
-        for (const historyItem of history) {
-          // Find the user by mobileNumber (adjust this based on your data structure)
-          const user = await Register.findOne({
-            mobileNumber: historyItem.number,
-          });
+        // // Iterate over the history items and lookup the fullName
+        // for (const historyItem of history) {
+        //   // Find the user by mobileNumber (adjust this based on your data structure)
+        //   const user = await Register.findOne({
+        //     mobileNumber: historyItem.number,
+        //   });
 
-          // Add the user's fullName to the history item
-          historyItem.fullName = user ? user.fullName : null;
-          historyItem.adress = user ? user.adress : null;
-          historyItem.email = user ? user.email : null;
+        //   // Add the user's fullName to the history item
+        //   historyItem.fullName = user ? user.fullName : null;
+        //   historyItem.adress = user ? user.adress : null;
+        //   historyItem.email = user ? user.email : null;
 
-          // Add the updated history item to the array
-          updatedHistory.push(historyItem);
-        }
+        //   // Add the updated history item to the array
+        //   updatedHistory.push(historyItem);
+        // }
 
         // Sort the data by date in descending order
-        const sortedHistory = updatedHistory.sort(
+        const sortedHistory = history.sort(
           (a, b) => new Date(b.date) - new Date(a.date)
         );
 
@@ -908,10 +920,10 @@ router.get("/totaljoin", async (req, res) => {
         const startIndex = pageSize * pageNumber;
 
         // Apply pagination using the slice method
-        const paginatedData = sortedHistory.slice(
-          startIndex,
-          startIndex + pageSize
-        );
+        // const paginatedData = sortedHistory.slice(
+        //   startIndex,
+        //   startIndex + pageSize
+        // );
 
         // Return the extracted and paginated data along with the total pages count
         res.status(200).json({
@@ -941,6 +953,7 @@ router.get("/totaljoin", async (req, res) => {
     });
   }
 });
+
 
 // Today Credit Amount
 router.get("/todaycreditamount", async (req, res) => {
