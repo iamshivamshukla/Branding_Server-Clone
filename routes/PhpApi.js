@@ -3191,4 +3191,151 @@ router.get("/all_userhistory/:mobileNumber/:name", async (req, res) => {
   }
 });
 
+
+router.post("/filter_all_userhistory/:mobileNumber/:name", async (req, res) => {
+  try {
+    const dynamicAuthorization = await getAuthorization();
+
+    if (dynamicAuthorization) {
+      const axiosInstance = axios.create({
+        headers: {
+          Authorization: dynamicAuthorization,
+        },
+      });
+
+      const mobileNumber = req.params.mobileNumber;
+      const name = req.params.name;
+      const pageSize = 200;
+      const pageNumber = parseInt(req.query.pageNumber) || 0;
+
+      const { income_type } = req.body; // Extract income_type from the request body
+
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_all_user_history.php?number=${mobileNumber}&name=${name}&page=${
+        pageNumber + 1
+      }&per_page=${pageSize}`;
+
+      const phpApiResponse = await axiosInstance.get(phpApiUrl);
+
+      if (phpApiResponse.status === 200) {
+        let history = phpApiResponse.data.details;
+
+        // Filter history based on income_type if provided
+        if (income_type) {
+          history = history.filter(item => item.income_type === income_type);
+        }
+
+        const sortedHistory = history.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const totalRecords = parseInt(phpApiResponse.data.pagination.total_records);
+        const totalPages = Math.ceil(totalRecords / pageSize);
+
+        res.status(200).json({
+          statusCode: 200,
+          perPageDataCount: sortedHistory.length,
+          totalUserHistoryCount: totalRecords,
+          total_pages: totalPages,
+          message: "Data retrieved successfully from PHP API",
+          history: sortedHistory,
+        });
+      } else {
+        res.status(401).json({
+          statusCode: 401,
+          message: "Error in retrieving data from PHP API",
+        });
+      }
+    } else {
+      res.status(402).json({
+        statusCode: 402,
+        message: "Error in fetching Authorization data",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      message: error.message,
+    });
+  }
+});
+
+
+router.post("/search_userhistory/:mobileNumber/:name", async (req, res) => {
+  try {
+    const dynamicAuthorization = await getAuthorization();
+
+    if (dynamicAuthorization) {
+      const axiosInstance = axios.create({
+        headers: {
+          Authorization: dynamicAuthorization,
+        },
+      });
+
+      const mobileNumber = req.params.mobileNumber;
+      const name = req.params.name;
+      const pageSize = 200;
+      const pageNumber = parseInt(req.query.pageNumber) || 0;
+
+      const { income_type } = req.body;
+      const { search } = req.body; // Extract 'search' from the request body
+
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_all_user_history.php?number=${mobileNumber}&name=${name}&page=${pageNumber + 1}&per_page=${pageSize}`;
+
+      const phpApiResponse = await axiosInstance.get(phpApiUrl);
+
+      if (phpApiResponse.status === 200) {
+        let history = phpApiResponse.data.details;
+
+        // Filter history based on income_type if provided
+        if (income_type) {
+          history = history.filter(item => item.income_type === income_type);
+        }
+
+        // Filter history based on 'search' keyword if provided
+        if (search) {
+          history = history.filter(item => {
+            for (const key in item) {
+              if (item[key] && item[key].toString().toLowerCase().includes(search.toLowerCase())) {
+                return true;
+              }
+            }
+            return false;
+          });
+        }
+
+        const sortedHistory = history.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const totalRecords = parseInt(phpApiResponse.data.pagination.total_records);
+        const totalPages = Math.ceil(totalRecords / pageSize);
+
+        res.status(200).json({
+          statusCode: 200,
+          perPageDataCount: sortedHistory.length,
+          totalUserHistoryCount: totalRecords,
+          total_pages: totalPages,
+          message: "Data retrieved successfully from PHP API",
+          history: sortedHistory,
+        });
+      } else {
+        res.status(401).json({
+          statusCode: 401,
+          message: "Error in retrieving data from PHP API",
+        });
+      }
+    } else {
+      res.status(402).json({
+        statusCode: 402,
+        message: "Error in fetching Authorization data",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      statusCode: 500,
+      message: error.message,
+    });
+  }
+});
+
+
+
+
+
+
+
 module.exports = router;
