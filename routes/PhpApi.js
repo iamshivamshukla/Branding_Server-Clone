@@ -606,15 +606,16 @@ router.get("/todayjoin", async (req, res) => {
       const offset = pageNumber * pageSize;
 
       // Make an HTTP request to the PHP API with pagination parameters
-      const phpApiUrl = `https://kubertree.com/MLM/MLM/today_join.php?page=${
+      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/today_join.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       if (phpApiResponse.status === 200) {
-        const data = phpApiResponse.data;
+        const data = phpApiResponse.data.history;
+        console.log(data, "data")
 
-        if (data && Array.isArray(data)) {
+        // if (data && Array.isArray(data)) {
           // Check if data is an array before sorting
           const sortedHistory = data.sort(
             (a, b) => new Date(b.date) - new Date(a.date)
@@ -633,12 +634,12 @@ router.get("/todayjoin", async (req, res) => {
             message: "Data retrieved successfully from PHP API",
             history: sortedHistory,
           });
-        } else {
-          res.status(400).json({
-            statusCode: 400,
-            message: "Missing data in the response from PHP API",
-          });
-        }
+        // } else {
+        //   res.status(400).json({
+        //     statusCode: 400,
+        //     message: "Missing data in the response from PHP API",
+        //   });
+        // }
       } else {
         res.status(401).json({
           statusCode: 401,
