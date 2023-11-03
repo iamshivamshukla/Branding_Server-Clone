@@ -606,7 +606,7 @@ router.get("/todayjoin", async (req, res) => {
       const offset = pageNumber * pageSize;
 
       // Make an HTTP request to the PHP API with pagination parameters
-      const phpApiUrl = `https://connectgoinfoware.com/new_apis/MLM/today_join.php?page=${
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/today_join.php?page=${
         pageNumber + 1
       }&per_page=${pageSize}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
