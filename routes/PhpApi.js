@@ -1797,10 +1797,10 @@ router.get("/tree/:mobileNumber", async (req, res) => {
         const history = phpApiResponse.data;
 
         // Assuming there's only one item in the response, take the first element
-        const singleItem = history[0];
+        // const singleItem = history[0];
 
         // Return the extracted data as a response to your Node.js API client
-        res.status(200).json(singleItem);
+        res.status(200).json(history);
       } else {
         res.status(401).json({
           statusCode: 401,
