@@ -383,7 +383,7 @@ router.get("/wallet/:mobileNumber", async (req, res) => {
       const mobileNumber = req.params.mobileNumber;
 
       // Make an HTTP request to the PHP API
-      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user.php?number=${mobileNumber}`;
+      const phpApiUrl = `https://kubertree.com/MLM/MLM/get_user_all_details_pass.php?number=${mobileNumber}`;
       const phpApiResponse = await axiosInstance.get(phpApiUrl);
 
       // Check if the response from the PHP API is successful
